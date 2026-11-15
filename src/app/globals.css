@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+@theme {
+  /* Sisi brand tokens — exact values from content-spec §5 / architecture.md */
+  --color-sand: #f3efe6;
+  --color-cream: #f7f3ea;
+  --color-jungle: #0e1f1a;
+  --color-ink: #14201b;
+  --color-lime: #d9ff3f;
+  --color-turf: #c1272d;
+
+  --font-display: "Fira Sans Extra Condensed", "Arial Narrow", sans-serif;
+  --font-body: "Inter Tight", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --animate-marquee: marquee 28s linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+body {
+  background-color: var(--color-sand);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--color-lime);
+  color: var(--color-jungle);
+}
+
+/* Lenis smooth-scroll helpers (from the source site) */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Subtle court-line grid overlay (source site) — used on turf sections */
+.court-grid-lines {
+  background-size: 64px 64px;
+  background-image:
+    linear-gradient(to right, rgba(243, 239, 230, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(243, 239, 230, 0.08) 1px, transparent 1px);
+}
+
+/* Hide scrollbar for the Vibe swipe track (source site) */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
