@@ -9,6 +9,7 @@
  */
 import { useState } from "react";
 import type { SiteMessages } from "@/lib/content";
+import MusicToggle from "@/components/MusicToggle";
 
 export default function Nav({ nav }: { nav: SiteMessages["nav"] }) {
   const [open, setOpen] = useState(false);
@@ -42,6 +43,7 @@ export default function Nav({ nav }: { nav: SiteMessages["nav"] }) {
         </ul>
 
         <div className="flex items-center gap-2">
+          <MusicToggle />
           <a
             href={nav.ctaUrl}
             target="_blank"
