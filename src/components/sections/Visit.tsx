@@ -23,7 +23,7 @@ export default function Visit({ locale }: { locale: Locale }) {
             <span className="mb-3 block text-xs font-semibold tracking-[0.2em] text-lime uppercase">
               {visit.label}
             </span>
-            <h2 className="font-display text-6xl font-bold sm:text-7xl md:text-8xl">
+            <h2 className="font-display text-5xl font-bold sm:text-6xl md:text-7xl">
               {visit.heading}
             </h2>
           </div>
@@ -108,12 +108,12 @@ export default function Visit({ locale }: { locale: Locale }) {
                             : "bg-sand/15 text-sand"
                         }`}
                       >
-                        Source Label: {card.sourceLabel}
+                        {card.sourceLabel}
                       </span>
                       <h3 className="font-display text-3xl font-bold text-sand">
                         {card.title}
                       </h3>
-                      <p className="font-display mt-3 text-4xl font-bold tracking-wide text-lime sm:text-5xl">
+                      <p className="font-display mt-3 text-2xl font-bold tracking-wide text-lime sm:text-3xl">
                         {card.number}
                       </p>
                       <p

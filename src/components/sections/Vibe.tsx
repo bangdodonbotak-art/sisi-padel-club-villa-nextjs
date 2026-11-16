@@ -4,8 +4,8 @@
  * Vibe — 8-slide horizontal slider with prev/next + swipe (content-spec
  * §2.5). Slide 8 is the padel video, autoplay deferred until in view.
  * Prev/next scroll by 380px like the source; native swipe works via the
- * overflow-x track. The kinetic marquee below renders the spec sequence
- * (first 6 items) twice for the seamless loop.
+ * overflow-x track. Rebuild Stage 1: the kinetic marquee strip below the
+ * slider was removed (footer marquee is the only marquee left).
  */
 import { useRef } from "react";
 import Image from "next/image";
@@ -39,29 +39,7 @@ export default function Vibe({ locale }: { locale: Locale }) {
     });
   };
 
-  // The marquee array holds the 6-item sequence twice; one sequence per loop copy.
-  const sequence = vibe.marquee.slice(0, 6);
-
-  const marqueeRow = (hidden: boolean) => (
-    <div
-      aria-hidden={hidden || undefined}
-      className="flex shrink-0 items-center gap-10"
-    >
-      {sequence.map((item, i) => (
-        <span key={`${hidden}-${item}`} className="flex items-center gap-10">
-          <span className="font-display text-3xl font-bold tracking-wider whitespace-nowrap uppercase sm:text-4xl">
-            {item}
-          </span>
-          <span
-            aria-hidden="true"
-            className={i % 2 === 0 ? "text-lime" : "text-turf"}
-          >
-            ●
-          </span>
-        </span>
-      ))}
-    </div>
-  );
+  // No marquee below the slider (removed in rebuild Stage 1).
 
   return (
     <section
@@ -74,7 +52,7 @@ export default function Vibe({ locale }: { locale: Locale }) {
             <span className="mb-3 block text-xs font-semibold tracking-[0.2em] text-lime uppercase">
               {vibe.label}
             </span>
-            <h2 className="font-display text-6xl font-bold sm:text-7xl md:text-8xl">
+            <h2 className="font-display text-5xl font-bold sm:text-6xl md:text-7xl">
               {vibe.heading}
             </h2>
           </div>
@@ -143,14 +121,6 @@ export default function Vibe({ locale }: { locale: Locale }) {
             </div>
           </div>
         ))}
-      </div>
-
-      {/* Kinetic marquee strip */}
-      <div className="mt-14 overflow-hidden border-y border-sand/15 bg-[#162F28]/60 py-5 select-none">
-        <div className="animate-marquee flex w-max items-center">
-          {marqueeRow(false)}
-          {marqueeRow(true)}
-        </div>
       </div>
     </section>
   );

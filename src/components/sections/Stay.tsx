@@ -32,7 +32,7 @@ export default function Stay({ locale }: { locale: Locale }) {
             <span className="mb-3 block text-xs font-semibold tracking-[0.2em] text-turf uppercase">
               {stay.label}
             </span>
-            <h2 className="font-display text-6xl font-bold sm:text-7xl md:text-8xl">
+            <h2 className="font-display text-5xl font-bold sm:text-6xl md:text-7xl">
               {stay.heading}
             </h2>
           </div>
@@ -70,13 +70,13 @@ export default function Stay({ locale }: { locale: Locale }) {
 
             <div className="grid gap-4 text-sm sm:grid-cols-2">
               <div className="rounded-2xl border border-jungle/15 bg-cream p-5">
-                <p className="mb-1 text-[11px] tracking-[0.18em] text-jungle/60 uppercase">
+                <p className="mb-2 inline-block rounded-full border border-jungle/25 px-3 py-1 text-[11px] font-semibold tracking-[0.18em] text-jungle/70 uppercase">
                   {stay.airbnbLabel}
                 </p>
                 <p>{stay.airbnbBody}</p>
               </div>
               <div className="rounded-2xl border border-jungle/15 bg-cream p-5">
-                <p className="mb-1 text-[11px] tracking-[0.18em] text-jungle/60 uppercase">
+                <p className="mb-2 inline-block rounded-full border border-jungle/25 px-3 py-1 text-[11px] font-semibold tracking-[0.18em] text-jungle/70 uppercase">
                   {stay.tiketLabel}
                 </p>
                 <p>{stay.tiketBody}</p>

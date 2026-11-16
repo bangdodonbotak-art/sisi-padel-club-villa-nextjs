@@ -26,7 +26,7 @@ export default function Courts({ locale }: { locale: Locale }) {
             <span className="mb-3 block text-xs font-semibold tracking-[0.2em] text-lime uppercase">
               {strings.label}
             </span>
-            <h2 className="font-display text-6xl font-bold sm:text-7xl md:text-8xl">
+            <h2 className="font-display text-5xl font-bold sm:text-6xl md:text-7xl">
               {strings.heading}
             </h2>
           </div>

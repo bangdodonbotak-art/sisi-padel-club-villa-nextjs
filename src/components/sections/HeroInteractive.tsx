@@ -170,6 +170,13 @@ export default function HeroInteractive({ ballAlt }: { ballAlt: string }) {
       void heroLoadAll();
 
       // Scroll scrub: pin hero, scroll picks the frame (end +=400%, scrub 0.5).
+      // NOTE (Stage 1, item 10): NO autoplay intro tween here, deliberately.
+      // The scrub owns the frame via ScrollTrigger progress + heroShown; a
+      // tween calling heroDraw() directly would desync heroShown from the
+      // scrub progress, so the first scroll would snap the frame back to
+      // ~0 (visible rewind). Animating real scroll instead would hijack
+      // the user's scroll position on load. Left for a scroll-driven
+      // solution in a later stage, if at all.
       ScrollTrigger.create({
         trigger: "#hero",
         start: "top top",
@@ -238,7 +245,7 @@ export default function HeroInteractive({ ballAlt }: { ballAlt: string }) {
     >
       <div
         id="scroll-ball-wrapper"
-        className="absolute top-[16vh] right-[6vw] flex h-24 w-24 items-center justify-center will-change-transform sm:h-28 sm:w-28 md:top-[18vh] md:right-[14vw] md:h-36 md:w-36"
+        className="absolute top-[24vh] right-[6vw] flex h-16 w-16 items-center justify-center will-change-transform sm:h-20 sm:w-20 md:top-[18vh] md:right-[14vw] md:h-28 md:w-28"
       >
         <div className="pointer-events-none absolute inset-3 rounded-full bg-lime/30 blur-xl" />
         {!ballFailed && (

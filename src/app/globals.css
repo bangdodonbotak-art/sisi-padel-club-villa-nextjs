@@ -83,3 +83,30 @@ html.lenis body {
   height: 8px;
   animation: eq-bar 0.9s ease-in-out infinite;
 }
+
+/* Neon open-status dot (Stage 1) — live "BUKA" pill in the nav */
+@keyframes neon-status-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 10px #d9ff3f,
+      0 0 22px rgba(217, 255, 63, 0.45);
+  }
+  50% {
+    box-shadow:
+      0 0 14px #d9ff3f,
+      0 0 30px rgba(217, 255, 63, 0.65);
+  }
+}
+.neon-status-dot {
+  background-color: #d9ff3f;
+  box-shadow:
+    0 0 10px #d9ff3f,
+    0 0 22px rgba(217, 255, 63, 0.45);
+  animation: neon-status-pulse 2.4s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .neon-status-dot {
+    animation: none;
+  }
+}

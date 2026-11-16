@@ -9,8 +9,12 @@ import Reveal from "./Reveal";
  */
 export default function Sessions({
   sessions,
+  asContinuation = false,
 }: {
   sessions: SiteMessages["sessions"];
+  /** Merged under Courts ("02 Courts & Sessions"): skip the label +
+   * intro header row and render the heading as a subheading instead. */
+  asContinuation?: boolean;
 }) {
   return (
     <section
@@ -18,19 +22,27 @@ export default function Sessions({
       className="relative bg-sand px-6 py-24 text-jungle sm:px-10 sm:py-32"
     >
       <div className="mx-auto max-w-7xl">
-        <div className="flex flex-col justify-between gap-6 border-b border-jungle/15 pb-10 md:flex-row md:items-end">
-          <div>
-            <span className="mb-3 block text-xs font-semibold tracking-[0.2em] text-turf uppercase">
-              {sessions.label}
-            </span>
-            <h2 className="font-display text-6xl font-bold sm:text-7xl md:text-8xl">
+        {asContinuation ? (
+          <div className="border-b border-jungle/15 pb-10">
+            <h3 className="font-display text-4xl font-bold sm:text-5xl">
               {sessions.heading}
-            </h2>
+            </h3>
           </div>
-          <p className="max-w-md text-sm text-jungle/80 sm:text-base">
-            {sessions.intro}
-          </p>
-        </div>
+        ) : (
+          <div className="flex flex-col justify-between gap-6 border-b border-jungle/15 pb-10 md:flex-row md:items-end">
+            <div>
+              <span className="mb-3 block text-xs font-semibold tracking-[0.2em] text-turf uppercase">
+                {sessions.label}
+              </span>
+              <h2 className="font-display text-5xl font-bold sm:text-6xl md:text-7xl">
+                {sessions.heading}
+              </h2>
+            </div>
+            <p className="max-w-md text-sm text-jungle/80 sm:text-base">
+              {sessions.intro}
+            </p>
+          </div>
+        )}
 
         <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-3">
           {sessions.cards.map((card, index) => {

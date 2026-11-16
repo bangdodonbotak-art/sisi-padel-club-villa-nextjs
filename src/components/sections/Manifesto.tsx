@@ -65,7 +65,7 @@ export default function Manifesto({
 
         <p
           ref={textRef}
-          className="font-display text-[9.5vw] leading-[0.96] font-bold tracking-tight text-jungle uppercase sm:text-[7vw] md:text-[5.6vw]"
+          className="font-display text-[7vw] leading-[0.96] font-bold tracking-tight text-jungle uppercase sm:text-[5.5vw] md:text-[4.2vw]"
         >
           {words.map((word, i) => (
             <Word

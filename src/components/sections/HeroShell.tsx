@@ -4,13 +4,17 @@
  * Split from the old monolithic client-only Hero (dynamic ssr:false),
  * which left the homepage with NO <h1> in server-rendered HTML — the
  * #1 SEO defect found in the 2026-11-16 audit. This shell renders in SSR
- * HTML: preloader, first-frame <img>, canvas element, meta bar, eyebrow,
- * H1, CTAs, subcopy. The interactive layer (canvas frame sequence, GSAP
+ * HTML: preloader, first-frame <img>, canvas element, eyebrow,
+ * H1, primary CTA. The interactive layer (canvas frame sequence, GSAP
  * pin/scrub, floating ball) lives in HeroInteractive, loaded client-only
  * via HeroLoader, and takes over these DOM nodes by id after mount.
  *
- * No behaviour changed: frame sequence, pin/scrub values, preloader,
- * headline and ball timeline are verbatim from the old Hero.
+ * Stage 1 rebuild (16 Nov 2026): top meta bar removed, secondary CTA +
+ * subcopy removed — hero is eyebrow + H1 + Chat WhatsApp button only.
+ *
+ * Frame sequence, pin/scrub values, preloader, and ball timeline are
+ * verbatim from the old Hero; Stage 1 changed only headline sizes,
+ * ball size/start, first-frame responsive source, and hero padding.
  *
  * <noscript> hides the preloader when JS is off, so the SSR content is
  * never trapped behind the overlay for no-JS crawlers/users.
@@ -75,52 +79,54 @@ export default function HeroShell({
       {/* Hero section */}
       <section
         id="hero"
-        className="relative flex min-h-[105svh] w-full flex-col justify-between overflow-hidden bg-jungle pt-24 pb-8 text-sand md:pb-12"
+        className="relative flex min-h-[100svh] w-full flex-col justify-between overflow-hidden bg-jungle pt-24 pb-32 text-sand md:pb-24"
       >
-        {/* Frame 1: real <img> for instant LCP; the canvas draws the sequence on top */}
-        <img
-          id="hero-first-frame"
-          src="/hero/desktop/0001.webp"
-          fetchPriority="high"
-          alt={hero.firstFrameAlt}
-          width={1280}
-          height={720}
-          className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500"
-        />
+        {/* Frame 1: real <img> for instant LCP; the canvas draws the sequence on top.
+            Mobile gets the lighter /hero/mobile/0001.webp via <picture>; the
+            desktop frame stays the fallback <img>. */}
+        <picture>
+          <source
+            media="(max-width: 768px)"
+            srcSet="/hero/mobile/0001.webp"
+          />
+          <img
+            id="hero-first-frame"
+            src="/hero/desktop/0001.webp"
+            fetchPriority="high"
+            alt={hero.firstFrameAlt}
+            width={1280}
+            height={720}
+            className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500"
+          />
+        </picture>
         <canvas
           id="hero-canvas"
           className="absolute inset-0 h-full w-full"
           data-frame="0"
         />
+        {/* Sun glare: soft radial glow, top-right corner, above the canvas
+            but below the z-20 content. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute top-0 right-0 z-10 h-[55%] w-[65%] opacity-40"
+          style={{
+            background:
+              "radial-gradient(ellipse 60% 55% at 78% 12%, rgba(255, 244, 180, 0.55) 0%, rgba(255, 236, 160, 0.18) 38%, transparent 68%)",
+          }}
+        />
         {/* Bottom scrim for headline legibility over the bright scene */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[62%] bg-gradient-to-t from-jungle/85 via-jungle/35 to-transparent" />
 
-        {/* Top meta bar — the ONE allowed change: a subtle scrim/pill behind
-            the whole metadata line so it stays legible over the frames. */}
-        <div className="relative z-20 mx-auto w-full max-w-7xl px-6 pt-2 sm:px-10">
-          <div className="flex w-fit max-w-full flex-wrap items-center justify-between gap-2 rounded-full border border-sand/15 bg-jungle/45 px-3 py-1.5 text-[11px] tracking-[0.18em] text-sand/85 uppercase backdrop-blur-sm sm:text-xs">
-            <div className="flex items-center gap-2">
-              <span className="rounded-full border border-sand/20 bg-jungle/40 px-2.5 py-1 font-medium text-lime">
-                {hero.metaLeft}
-              </span>
-              <span className="hidden text-sand/70 sm:inline">
-                {hero.metaLeftDesktop}
-              </span>
-            </div>
-            <div className="font-mono text-sand/75">{hero.metaRight}</div>
-          </div>
-        </div>
-
-        {/* Headline + CTAs (bottom-left, over the scene) */}
+        {/* Headline + CTA (bottom-left, over the scene) */}
         <div className="relative z-20 mx-auto mt-auto w-full max-w-7xl px-6 sm:px-10">
           <p className="mb-2 text-xs font-semibold tracking-[0.2em] text-lime uppercase">
             {hero.eyebrow}
           </p>
           <h1 className="font-display leading-[0.84] font-bold tracking-tight select-none">
-            <span className="block text-[19vw] text-sand sm:text-[15vw] lg:text-[11vw]">
+            <span className="block text-[15vw] text-sand sm:text-[12vw] lg:text-[9vw]">
               {hero.headlineLine1}
             </span>
-            <span className="block text-[20vw] text-lime italic sm:text-[16vw] lg:text-[12vw]">
+            <span className="block text-[16vw] text-lime italic sm:text-[13vw] lg:text-[10vw]">
               {hero.headlineLine2}
             </span>
           </h1>
@@ -133,15 +139,6 @@ export default function HeroShell({
             >
               {hero.primaryCta}
             </a>
-            <a
-              href={hero.secondaryCtaUrl}
-              className="text-xs tracking-[0.14em] text-sand/90 uppercase underline decoration-lime/70 underline-offset-4 transition-colors hover:text-lime sm:text-sm"
-            >
-              {hero.secondaryCta}
-            </a>
-            <p className="max-w-md text-sm leading-snug text-sand/85 sm:text-base">
-              {hero.subcopy}
-            </p>
           </div>
         </div>
       </section>

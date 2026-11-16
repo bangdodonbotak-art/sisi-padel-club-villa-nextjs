@@ -37,7 +37,7 @@ export default function Footer({ footer }: { footer: SiteMessages["footer"] }) {
       </div>
 
       <div className="mx-auto max-w-6xl px-4 pt-12 pb-8 sm:px-6">
-        <p className="font-display text-[13vw] leading-[0.9] font-bold tracking-tight text-cream uppercase sm:text-8xl">
+        <p className="font-display text-[9vw] leading-[0.9] font-bold tracking-tight text-cream uppercase sm:text-7xl">
           {footer.wordmark}
           <span className="text-lime">.</span>
         </p>

@@ -10,6 +10,7 @@
 import { useState } from "react";
 import type { SiteMessages } from "@/lib/content";
 import MusicToggle from "@/components/MusicToggle";
+import OpenStatus from "@/components/OpenStatus";
 
 export default function Nav({ nav }: { nav: SiteMessages["nav"] }) {
   const [open, setOpen] = useState(false);
@@ -43,6 +44,12 @@ export default function Nav({ nav }: { nav: SiteMessages["nav"] }) {
         </ul>
 
         <div className="flex items-center gap-2">
+          <OpenStatus
+            statusOpen={nav.statusOpen}
+            statusClosed={nav.statusClosed}
+            statusAriaOpen={nav.statusAriaOpen}
+            statusAriaClosed={nav.statusAriaClosed}
+          />
           <MusicToggle />
           <a
             href={nav.ctaUrl}

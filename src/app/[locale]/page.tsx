@@ -1,14 +1,15 @@
 /**
- * Final page — composes the 10 sections in order (build-contract §4):
- * Hero → ClubStrip → Manifesto → Courts → Vibe → Stay → Sessions →
- * FAQ → Booking → Visit, with MarqueeDivider bands between major
- * sections. The hero is split (SEO audit 2026-11-16): HeroShell renders
- * the headline/CTAs in SSR HTML, HeroInteractive (client-only, via
- * HeroLoader) takes over the canvas/GSAP/ball after hydration. Visit
- * flows directly into the footer marquee — no spacer, no dead band.
+ * Final page — composes the sections in order (rebuild Stage 1):
+ * Hero → ClubStrip → Manifesto → Courts → Sessions (continuation) →
+ * Vibe → Stay → FAQ → Booking → Visit. No MarqueeDivider bands: the
+ * only marquee left is the footer marquee. Courts + Sessions run back
+ * to back as merged section "02 Courts & Sessions". The hero is split
+ * (SEO audit 2026-11-16): HeroShell renders the headline/CTAs in SSR
+ * HTML, HeroInteractive (client-only, via HeroLoader) takes over the
+ * canvas/GSAP/ball after hydration. Visit flows directly into the
+ * footer marquee — no spacer, no dead band.
  */
 import { getSite, isLocale, type Locale } from "@/lib/content";
-import MarqueeDivider from "@/components/background/MarqueeDivider";
 import HeroShell from "@/components/sections/HeroShell";
 import ClubStrip from "@/components/sections/ClubStrip";
 import Manifesto from "@/components/sections/Manifesto";
@@ -33,16 +34,12 @@ export default async function LocalePage({
     <>
       <HeroShell hero={site.hero} preloader={site.preloader} />
       <ClubStrip clubStrip={site.clubStrip} />
-      <MarqueeDivider />
       <Manifesto manifesto={site.manifesto} />
       <Courts locale={loc} />
-      <MarqueeDivider />
+      <Sessions sessions={site.sessions} asContinuation />
       <Vibe locale={loc} />
       <Stay locale={loc} />
-      <MarqueeDivider />
-      <Sessions sessions={site.sessions} />
       <Faq locale={loc} />
-      <MarqueeDivider />
       <Booking locale={loc} />
       <Visit locale={loc} />
     </>

@@ -33,7 +33,7 @@ export default function Faq({ locale }: { locale: Locale }) {
             <span className="mb-3 block text-xs font-semibold tracking-[0.2em] text-turf uppercase">
               {site.faq.label}
             </span>
-            <h2 className="font-display text-5xl font-bold sm:text-7xl">
+            <h2 className="font-display text-4xl font-bold sm:text-6xl">
               {site.faq.heading}
             </h2>
           </div>
