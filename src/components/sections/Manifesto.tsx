@@ -127,9 +127,12 @@ export default function Manifesto({
           <span>{manifesto.labelRight}</span>
         </div>
 
+        {/* Manifesto copy + type, Dony 17 Nov 2026 02:44 WIB: location prefix
+            removed from the text (starts at "Sisi Padel..."), size cut 25%
+            (was 7vw/5.5vw/4.2vw), no more all-caps. */}
         <p
           ref={textRef}
-          className="font-display text-[7vw] leading-[0.96] font-bold tracking-tight text-sand uppercase sm:text-[5.5vw] md:text-[4.2vw]"
+          className="font-display text-[5.25vw] leading-[0.96] font-bold tracking-tight text-sand sm:text-[4.1vw] md:text-[3.15vw]"
         >
           {words.map((word, i) => (
             <Word
