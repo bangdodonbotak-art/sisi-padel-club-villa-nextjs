@@ -12,8 +12,9 @@ const securityHeaders = [
     // blocks external script/style injection, framing, plugins and
     // cross-origin exfiltration — it is defense-in-depth, NOT a full XSS
     // control (a nonce-based CSP would need a dynamic render). External
-    // origins used by the site: Google Fonts only (stylesheet + font
-    // files). img-src data: is needed for the inline SVG grain texture.
+    // origins used by the site: Google Fonts (stylesheet + font files)
+    // and Google Maps (frame-src for the Visit map embed, no API key).
+    // img-src data: is needed for the inline SVG grain texture.
     // media-src 'self' covers the local lounge audio (/audio/*.mp3).
     value: [
       "default-src 'self'",
@@ -26,6 +27,7 @@ const securityHeaders = [
       "worker-src 'self'",
       "object-src 'none'",
       "base-uri 'self'",
+      "frame-src https://www.google.com https://maps.google.com",
       "frame-ancestors 'none'",
       "upgrade-insecure-requests",
     ].join("; "),

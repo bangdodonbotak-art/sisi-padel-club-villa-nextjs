@@ -12,10 +12,13 @@ export default function DeferredVideo({
   src,
   ariaLabel,
   className = "",
+  paused = false,
 }: {
   src: string;
   ariaLabel: string;
   className?: string;
+  /** Force-pause (e.g. while the same video is open in the lightbox). */
+  paused?: boolean;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [inView, setInView] = useState(false);
@@ -36,6 +39,10 @@ export default function DeferredVideo({
   useEffect(() => {
     const el = videoRef.current;
     if (!el) return;
+    if (paused) {
+      el.pause();
+      return;
+    }
     if (inView) {
       void el.play().catch(() => {
         /* autoplay blocked — user can tap to play; never throw */
@@ -43,7 +50,7 @@ export default function DeferredVideo({
     } else {
       el.pause();
     }
-  }, [inView]);
+  }, [inView, paused]);
 
   return (
     <video

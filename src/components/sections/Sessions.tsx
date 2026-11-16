@@ -1,3 +1,6 @@
+"use client";
+
+import { motion, useReducedMotion } from "motion/react";
 import type { SiteMessages } from "@/lib/content";
 import Reveal from "./Reveal";
 
@@ -5,7 +8,9 @@ import Reveal from "./Reveal";
  * Sessions — both 120-minute court cards + the Villa On Site card
  * (content-spec §2.7). Buttons go to WhatsApp / #booking (§6 #10–13);
  * the intro note is the reworded version (§6 #9). No prices anywhere.
- * Server component.
+ * Task A: no content <img> in this section, so no lightbox here —
+ * motion only: staggered reveal (existing) + hover lift + shine sweep
+ * on the cards. All motion off under prefers-reduced-motion.
  */
 export default function Sessions({
   sessions,
@@ -16,6 +21,8 @@ export default function Sessions({
    * intro header row and render the heading as a subheading instead. */
   asContinuation?: boolean;
 }) {
+  const reduceMotion = useReducedMotion();
+
   return (
     <section
       id="plans"
@@ -50,14 +57,21 @@ export default function Sessions({
             const isVilla = card.id === "villa";
             return (
               <Reveal key={card.id} delay={index * 0.08}>
-                <div
-                  className={`flex h-full flex-col justify-between rounded-3xl border p-7 sm:p-8 ${
+                <motion.div
+                  whileHover={reduceMotion ? undefined : { y: -6 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  className={`group relative flex h-full flex-col justify-between overflow-hidden rounded-3xl border p-7 transition-shadow hover:shadow-2xl hover:shadow-black/30 sm:p-8 ${
                     isMain
                       ? "border-jungle bg-jungle text-sand"
                       : "border-sand/20 bg-jungle/55 backdrop-blur-sm"
                   }`}
                 >
-                  <div>
+                  {/* Shine sweep on hover */}
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 -translate-x-[120%] bg-gradient-to-r from-transparent via-sand/10 to-transparent transition-transform duration-1000 ease-out group-hover:translate-x-[120%]"
+                  />
+                  <div className="relative">
                     <div
                       className="mb-4 flex items-center justify-between text-xs font-semibold tracking-[0.18em] text-lime uppercase"
                     >
@@ -92,7 +106,7 @@ export default function Sessions({
                     )}
                   </div>
 
-                  <div className="mt-8 border-t border-sand/15 pt-6">
+                  <div className="relative mt-8 border-t border-sand/15 pt-6">
                     <a
                       href={card.buttonUrl}
                       {...(card.buttonUrl.startsWith("http")
@@ -109,7 +123,7 @@ export default function Sessions({
                       {card.button}
                     </a>
                   </div>
-                </div>
+                </motion.div>
               </Reveal>
             );
           })}
