@@ -1,22 +1,19 @@
 "use client";
 
 /**
- * HeroLoader — client wrapper so the Hero can be loaded with
+ * HeroLoader — client wrapper so HeroInteractive can be loaded with
  * dynamic(..., { ssr: false }) (not allowed directly in a Server
- * Component). The Hero itself stays client-only: SSR never renders a
- * different frame index than the client.
+ * Component). The SEO-critical hero markup lives in HeroShell (server)
+ * and is rendered by the page; this loader only mounts the interactive
+ * layer (canvas frame sequence, GSAP pin/scrub, floating ball) after
+ * hydration. The interactive layer takes over the shell's DOM nodes by id.
  */
 import dynamic from "next/dynamic";
-import type { SiteMessages } from "@/lib/content";
 
-const Hero = dynamic(() => import("./Hero"), { ssr: false });
+const HeroInteractive = dynamic(() => import("./HeroInteractive"), {
+  ssr: false,
+});
 
-export default function HeroLoader({
-  hero,
-  preloader,
-}: {
-  hero: SiteMessages["hero"];
-  preloader: SiteMessages["preloader"];
-}) {
-  return <Hero hero={hero} preloader={preloader} />;
+export default function HeroLoader({ ballAlt }: { ballAlt: string }) {
+  return <HeroInteractive ballAlt={ballAlt} />;
 }

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
-import { getSite, isLocale, locales, siteFacts } from "@/lib/content";
+import { getFaq, getSite, isLocale, locales, siteFacts } from "@/lib/content";
 import { routing } from "@/i18n/routing";
 import Grain from "@/components/background/Grain";
 import Aurora from "@/components/background/Aurora";
@@ -40,6 +40,7 @@ export async function generateMetadata({
     alternates: {
       canonical,
       languages: {
+        "x-default": siteUrl,
         id: siteUrl,
         en: `${siteUrl}/en`,
       },
@@ -78,6 +79,20 @@ export default async function LocaleLayout({
 
   const messages = await getMessages(); // next-intl: uses setRequestLocale above
   const site = getSite(loc);
+  const faq = getFaq(loc);
+
+  // FAQPage schema — all 7 Q&As are rendered in the DOM by the Faq
+  // section (inactive tabs are CSS-hidden, never unmounted), so the
+  // markup matches visible page content (SEO audit 2026-11-16).
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer", text: item.answer },
+    })),
+  };
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -123,7 +138,19 @@ export default async function LocaleLayout({
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          // JSON.stringify does NOT escape "<", so a "</script>" inside any
+          // value would terminate this element and allow script injection.
+          // Values are static today, but escape anyway so a future
+          // contributor copying this pattern cannot introduce the hole.
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c"),
+          }}
         />
       </head>
       <body className="bg-sand font-body text-ink">

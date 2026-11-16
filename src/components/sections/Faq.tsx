@@ -12,7 +12,15 @@ export default function Faq({ locale }: { locale: Locale }) {
   const faq = getFaq(locale);
   const site = getSite(locale);
   const [activeTab, setActiveTab] = useState(faq.tabs[0]?.id ?? "courts");
-  const items = faq.items.filter((item) => item.tab === activeTab);
+
+  // SEO audit 2026-11-16: render ALL tabs' Q&As into the DOM (inactive
+  // tabs are `hidden`, never unmounted) so every answer is in the SSR
+  // HTML — that is what makes the FAQPage JSON-LD in the layout
+  // legitimate. Visual behaviour is unchanged: only the active tab shows.
+  const tabGroups = faq.tabs.map((tab) => ({
+    tab,
+    items: faq.items.filter((item) => item.tab === tab.id),
+  }));
 
   return (
     <section
@@ -54,19 +62,21 @@ export default function Faq({ locale }: { locale: Locale }) {
           ))}
         </div>
 
-        <div className="space-y-4">
-          {items.map((item) => (
-            <div
-              key={item.id}
-              className="rounded-2xl border border-jungle/15 bg-[#E5DEC9]/70 p-6"
-            >
-              <h3 className="font-display text-2xl font-bold">
-                {item.question}
-              </h3>
-              <p className="mt-2 text-sm text-jungle/80">{item.answer}</p>
-            </div>
-          ))}
-        </div>
+        {tabGroups.map(({ tab, items }) => (
+          <div key={tab.id} hidden={tab.id !== activeTab} className="space-y-4">
+            {items.map((item) => (
+              <div
+                key={item.id}
+                className="rounded-2xl border border-jungle/15 bg-[#E5DEC9]/70 p-6"
+              >
+                <h3 className="font-display text-2xl font-bold">
+                  {item.question}
+                </h3>
+                <p className="mt-2 text-sm text-jungle/80">{item.answer}</p>
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
     </section>
   );

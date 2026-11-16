@@ -2,13 +2,14 @@
  * Final page — composes the 10 sections in order (build-contract §4):
  * Hero → ClubStrip → Manifesto → Courts → Vibe → Stay → Sessions →
  * FAQ → Booking → Visit, with MarqueeDivider bands between major
- * sections. Hero is client-only (dynamic ssr:false) so SSR never renders
- * a different frame index than the client. Visit flows directly into
- * the footer marquee — no spacer, no dead band.
+ * sections. The hero is split (SEO audit 2026-11-16): HeroShell renders
+ * the headline/CTAs in SSR HTML, HeroInteractive (client-only, via
+ * HeroLoader) takes over the canvas/GSAP/ball after hydration. Visit
+ * flows directly into the footer marquee — no spacer, no dead band.
  */
 import { getSite, isLocale, type Locale } from "@/lib/content";
 import MarqueeDivider from "@/components/background/MarqueeDivider";
-import HeroLoader from "@/components/sections/HeroLoader";
+import HeroShell from "@/components/sections/HeroShell";
 import ClubStrip from "@/components/sections/ClubStrip";
 import Manifesto from "@/components/sections/Manifesto";
 import Courts from "@/components/sections/Courts";
@@ -30,7 +31,7 @@ export default async function LocalePage({
 
   return (
     <>
-      <HeroLoader hero={site.hero} preloader={site.preloader} />
+      <HeroShell hero={site.hero} preloader={site.preloader} />
       <ClubStrip clubStrip={site.clubStrip} />
       <MarqueeDivider />
       <Manifesto manifesto={site.manifesto} />

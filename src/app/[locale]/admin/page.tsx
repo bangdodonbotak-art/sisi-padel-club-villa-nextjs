@@ -30,7 +30,15 @@
  * Until then the site keeps reading the local content files
  * (content/*.json + messages/*.json); the build never blocks.
  */
+import type { Metadata } from "next";
 import { getCourts, getFaq, getPhotos, getSite, type Locale } from "@/lib/content";
+
+// SEO audit 2026-11-16: the admin stub is a read-only internal tool —
+// it must not be indexed. (Do NOT add a robots.txt Disallow for it:
+// blocking crawl would prevent Google from ever seeing this noindex.)
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 const SANITY_STEPS = [
   "1. Create an account at sanity.io (sign up with email/Google).",
