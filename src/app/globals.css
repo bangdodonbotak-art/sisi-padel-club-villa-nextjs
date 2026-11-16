@@ -22,6 +22,18 @@
       transform: translateX(-50%);
     }
   }
+
+  --animate-wa-float: wa-float 3s ease-in-out infinite;
+
+  @keyframes wa-float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
 }
 
 body {
@@ -108,5 +120,57 @@ html.lenis body {
 @media (prefers-reduced-motion: reduce) {
   .neon-status-dot {
     animation: none;
+  }
+  .animate-wa-float {
+    animation: none;
+  }
+  .photo-backdrop-layer,
+  .photo-backdrop-img {
+    animation: none !important;
+  }
+  /* Static fallback: first photo only, fully visible. */
+  .photo-backdrop-layer {
+    opacity: 0;
+  }
+  .photo-backdrop-layer:first-child {
+    opacity: 1;
+  }
+}
+
+/* Photo backdrop (Dony 12:21) — 3 photos, 36 s cycle, staggered so
+   exactly one is fully visible at a time with a slow crossfade.
+   Negative delays put every layer mid-cycle from the first paint.
+   Ken Burns drift runs on the <img> (transform), crossfade on the
+   wrapper (opacity) so the two animations never fight. */
+.photo-backdrop-layer {
+  opacity: 0;
+  animation: photo-crossfade 36s ease-in-out infinite;
+}
+.photo-backdrop-img {
+  animation: photo-drift 36s ease-in-out infinite alternate;
+}
+@keyframes photo-crossfade {
+  0% {
+    opacity: 0;
+  }
+  5.5% {
+    opacity: 1;
+  }
+  33.3% {
+    opacity: 1;
+  }
+  38.8% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes photo-drift {
+  from {
+    transform: scale(1) translate(0, 0);
+  }
+  to {
+    transform: scale(1.08) translate(-1.5%, 1%);
   }
 }

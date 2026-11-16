@@ -138,8 +138,5 @@ export const siteFacts = {
   hours: "08:00–21:30",
   ratingValue: 5,
   ratingCount: 26,
-  whatsappDisplay: "08111592462",
   whatsappUrl: "https://wa.me/628111592462",
-  phoneGoogleDisplay: "+62 821-2544-6099",
-  phoneGoogleTel: "tel:+6282125446099",
 } as const;

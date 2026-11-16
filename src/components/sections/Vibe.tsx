@@ -44,7 +44,7 @@ export default function Vibe({ locale }: { locale: Locale }) {
   return (
     <section
       id="vibe"
-      className="relative overflow-hidden bg-jungle py-24 text-sand sm:py-32"
+      className="relative overflow-hidden py-24 text-sand sm:py-32"
     >
       <div className="mx-auto max-w-7xl px-6 sm:px-10">
         <div className="mb-12 flex flex-wrap items-end justify-between gap-6">

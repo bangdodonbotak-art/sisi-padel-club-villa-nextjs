@@ -19,26 +19,26 @@ export default function Sessions({
   return (
     <section
       id="plans"
-      className="relative bg-sand px-6 py-24 text-jungle sm:px-10 sm:py-32"
+      className="relative px-6 py-24 text-sand sm:px-10 sm:py-32"
     >
       <div className="mx-auto max-w-7xl">
         {asContinuation ? (
-          <div className="border-b border-jungle/15 pb-10">
+          <div className="border-b border-sand/15 pb-10">
             <h3 className="font-display text-4xl font-bold sm:text-5xl">
               {sessions.heading}
             </h3>
           </div>
         ) : (
-          <div className="flex flex-col justify-between gap-6 border-b border-jungle/15 pb-10 md:flex-row md:items-end">
+          <div className="flex flex-col justify-between gap-6 border-b border-sand/15 pb-10 md:flex-row md:items-end">
             <div>
-              <span className="mb-3 block text-xs font-semibold tracking-[0.2em] text-turf uppercase">
+              <span className="mb-3 block text-xs font-semibold tracking-[0.2em] text-lime uppercase">
                 {sessions.label}
               </span>
               <h2 className="font-display text-5xl font-bold sm:text-6xl md:text-7xl">
                 {sessions.heading}
               </h2>
             </div>
-            <p className="max-w-md text-sm text-jungle/80 sm:text-base">
+            <p className="max-w-md text-sm text-sand/80 sm:text-base">
               {sessions.intro}
             </p>
           </div>
@@ -54,14 +54,12 @@ export default function Sessions({
                   className={`flex h-full flex-col justify-between rounded-3xl border p-7 sm:p-8 ${
                     isMain
                       ? "border-jungle bg-jungle text-sand"
-                      : "border-jungle/15 bg-[#E5DEC9]/80"
+                      : "border-sand/20 bg-jungle/55 backdrop-blur-sm"
                   }`}
                 >
                   <div>
                     <div
-                      className={`mb-4 flex items-center justify-between text-xs font-semibold tracking-[0.18em] uppercase ${
-                        isMain ? "text-lime" : "text-turf"
-                      }`}
+                      className="mb-4 flex items-center justify-between text-xs font-semibold tracking-[0.18em] text-lime uppercase"
                     >
                       <span>{card.topLeft}</span>
                       <span>{card.topRight}</span>
@@ -77,10 +75,10 @@ export default function Sessions({
                             className="flex items-center gap-2.5"
                           >
                             <span
-                              className={`h-2 w-2 shrink-0 rounded-full ${isMain ? "bg-lime" : "bg-turf"}`}
+                              className="h-2 w-2 shrink-0 rounded-full bg-lime"
                             />
                             <span
-                              className={isMain ? "text-sand/85" : "text-jungle/85"}
+                              className={isMain ? "text-sand/85" : "text-sand/85"}
                             >
                               {bullet}
                             </span>
@@ -88,13 +86,13 @@ export default function Sessions({
                         ))}
                       </ul>
                     ) : (
-                      <p className="mt-5 text-sm leading-relaxed text-jungle/85">
+                      <p className="mt-5 text-sm leading-relaxed text-sand/85">
                         {"body" in card ? card.body : ""}
                       </p>
                     )}
                   </div>
 
-                  <div className="mt-8 border-t border-jungle/15 pt-6">
+                  <div className="mt-8 border-t border-sand/15 pt-6">
                     <a
                       href={card.buttonUrl}
                       {...(card.buttonUrl.startsWith("http")
@@ -104,7 +102,7 @@ export default function Sessions({
                         isMain
                           ? "bg-lime text-jungle hover:opacity-90"
                           : isVilla
-                            ? "bg-jungle text-sand hover:bg-turf"
+                            ? "bg-sand text-jungle hover:bg-lime"
                             : "bg-turf text-sand hover:bg-jungle hover:text-lime"
                       }`}
                     >

@@ -14,20 +14,6 @@ const HeroInteractive = dynamic(() => import("./HeroInteractive"), {
   ssr: false,
 });
 
-export default function HeroLoader({
-  ballAlt,
-  pauseMotion,
-  resumeMotion,
-}: {
-  ballAlt: string;
-  pauseMotion: string;
-  resumeMotion: string;
-}) {
-  return (
-    <HeroInteractive
-      ballAlt={ballAlt}
-      pauseMotion={pauseMotion}
-      resumeMotion={resumeMotion}
-    />
-  );
+export default function HeroLoader({ ballAlt }: { ballAlt: string }) {
+  return <HeroInteractive ballAlt={ballAlt} />;
 }

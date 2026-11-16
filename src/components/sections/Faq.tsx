@@ -25,12 +25,12 @@ export default function Faq({ locale }: { locale: Locale }) {
   return (
     <section
       id="faq"
-      className="relative bg-sand px-6 pb-24 text-jungle sm:px-10 sm:pb-32"
+      className="relative px-6 pb-24 text-sand sm:px-10 sm:pb-32"
     >
-      <div className="mx-auto max-w-5xl border-t border-jungle/15 pt-12">
+      <div className="mx-auto max-w-5xl border-t border-sand/15 pt-12">
         <div className="mb-10 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
           <div>
-            <span className="mb-3 block text-xs font-semibold tracking-[0.2em] text-turf uppercase">
+            <span className="mb-3 block text-xs font-semibold tracking-[0.2em] text-lime uppercase">
               {site.faq.label}
             </span>
             <h2 className="font-display text-4xl font-bold sm:text-6xl">
@@ -54,7 +54,7 @@ export default function Faq({ locale }: { locale: Locale }) {
               className={`rounded-full px-5 py-2.5 text-xs font-semibold tracking-[0.16em] uppercase transition-colors ${
                 activeTab === tab.id
                   ? "bg-turf text-sand"
-                  : "bg-[#E5DEC9] text-jungle hover:bg-jungle/10"
+                  : "bg-sand/10 text-sand hover:bg-sand/20"
               }`}
             >
               {tab.label}
@@ -67,12 +67,12 @@ export default function Faq({ locale }: { locale: Locale }) {
             {items.map((item) => (
               <div
                 key={item.id}
-                className="rounded-2xl border border-jungle/15 bg-[#E5DEC9]/70 p-6"
+                className="rounded-2xl border border-sand/20 bg-jungle/55 p-6 backdrop-blur-sm"
               >
                 <h3 className="font-display text-2xl font-bold">
                   {item.question}
                 </h3>
-                <p className="mt-2 text-sm text-jungle/80">{item.answer}</p>
+                <p className="mt-2 text-sm text-sand/80">{item.answer}</p>
               </div>
             ))}
           </div>

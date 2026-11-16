@@ -2,10 +2,12 @@ import { getSite, siteFacts, type Locale } from "@/lib/content";
 import Reveal from "./Reveal";
 
 /**
- * Visit — address/hours/rating card + two SEPARATE phone cards with
- * source labels (content-spec §2.10): WhatsApp 08111592462 and Google
- * +62 821-2544-6099, never merged. Bottom padding is kept tight so Visit
- * flows directly into the footer marquee with no dead band.
+ * Visit — address/hours/rating card only (content-spec §2.10).
+ *
+ * Phone cards deleted 16 Nov 2026 (Dony 12:15 + 12:16): the Google
+ * contact is gone entirely, and WhatsApp is only the single floating
+ * button site-wide. Bottom padding is kept tight so Visit flows
+ * directly into the footer marquee with no dead band.
  * Server component.
  */
 export default function Visit({ locale }: { locale: Locale }) {
@@ -15,7 +17,7 @@ export default function Visit({ locale }: { locale: Locale }) {
   return (
     <section
       id="visit"
-      className="relative border-t border-sand/15 bg-jungle px-6 pt-24 pb-16 text-sand sm:px-10 sm:pt-32 sm:pb-24"
+      className="relative border-t border-sand/15 px-6 pt-24 pb-16 text-sand sm:px-10 sm:pt-32 sm:pb-24"
     >
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col justify-between gap-6 border-b border-sand/15 pb-10 md:flex-row md:items-end">
@@ -32,8 +34,8 @@ export default function Visit({ locale }: { locale: Locale }) {
           </div>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-12">
-          <Reveal className="lg:col-span-5">
+        <div className="mt-12">
+          <Reveal>
             <div className="flex h-full flex-col justify-between space-y-6 rounded-3xl border border-sand/15 bg-[#162F28] p-7 sm:p-8">
               <div>
                 <span className="text-xs font-semibold tracking-[0.18em] text-lime uppercase">
@@ -88,60 +90,6 @@ export default function Visit({ locale }: { locale: Locale }) {
             </div>
           </Reveal>
 
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:col-span-7">
-            {visit.phoneCards.map((card) => {
-              const isWhatsApp = card.id === "whatsapp";
-              return (
-                <Reveal key={card.id}>
-                  <div
-                    className={`flex h-full flex-col justify-between rounded-3xl border p-7 ${
-                      isWhatsApp
-                        ? "border-sand/25 bg-turf"
-                        : "border-sand/20 bg-[#162F28]"
-                    }`}
-                  >
-                    <div>
-                      <span
-                        className={`mb-4 inline-block rounded-full px-3 py-1 font-mono text-[11px] tracking-[0.18em] uppercase ${
-                          isWhatsApp
-                            ? "bg-jungle text-lime"
-                            : "bg-sand/15 text-sand"
-                        }`}
-                      >
-                        {card.sourceLabel}
-                      </span>
-                      <h3 className="font-display text-3xl font-bold text-sand">
-                        {card.title}
-                      </h3>
-                      <p className="font-display mt-3 text-2xl font-bold tracking-wide text-lime sm:text-3xl">
-                        {card.number}
-                      </p>
-                      <p
-                        className={`mt-3 text-xs leading-relaxed ${isWhatsApp ? "text-sand/85" : "text-sand/75"}`}
-                      >
-                        {card.body}
-                      </p>
-                    </div>
-                    <div className="mt-8 border-t border-sand/20 pt-4">
-                      <a
-                        href={card.url}
-                        {...(card.url.startsWith("http")
-                          ? { target: "_blank", rel: "noopener noreferrer" }
-                          : {})}
-                        className={`inline-flex w-full items-center justify-center rounded-full px-4 py-3.5 text-xs font-semibold tracking-[0.15em] uppercase transition-colors ${
-                          isWhatsApp
-                            ? "bg-lime text-jungle hover:opacity-90"
-                            : "border border-sand/25 bg-sand/15 text-sand hover:border-lime hover:text-lime"
-                        }`}
-                      >
-                        {card.button}
-                      </a>
-                    </div>
-                  </div>
-                </Reveal>
-              );
-            })}
-          </div>
         </div>
       </div>
     </section>

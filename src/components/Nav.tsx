@@ -1,10 +1,10 @@
 "use client";
 
 /**
- * Nav — desktop pill nav (7 links + WhatsApp CTA) + mobile hamburger menu
- * (slide-down panel, same links + WhatsApp CTA).
+ * Nav — desktop pill nav (7 links) + mobile hamburger menu.
  *
- * The CTA is WhatsApp only — no booking-platform link anywhere.
+ * No chat CTA here any more — the single floating WhatsApp button
+ * (FloatingWhatsApp) is the only chat button on the site (Dony 12:16).
  * The wordmark carries the lime dot from the source site.
  */
 import { useState } from "react";
@@ -51,14 +51,6 @@ export default function Nav({ nav }: { nav: SiteMessages["nav"] }) {
             statusAriaClosed={nav.statusAriaClosed}
           />
           <MusicToggle />
-          <a
-            href={nav.ctaUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden rounded-full bg-lime px-5 py-2.5 text-sm font-semibold text-jungle transition-transform hover:scale-[1.03] sm:block"
-          >
-            {nav.cta}
-          </a>
 
           {/* Mobile hamburger */}
           <button
@@ -101,14 +93,6 @@ export default function Nav({ nav }: { nav: SiteMessages["nav"] }) {
               </li>
             ))}
           </ul>
-          <a
-            href={nav.ctaUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-3 block rounded-full bg-lime px-5 py-3 text-center text-sm font-semibold text-jungle"
-          >
-            {nav.cta}
-          </a>
         </div>
       </div>
     </header>

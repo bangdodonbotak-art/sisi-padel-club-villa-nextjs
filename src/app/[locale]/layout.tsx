@@ -6,11 +6,11 @@ import { getFaq, getSite, isLocale, locales, siteFacts } from "@/lib/content";
 import { routing } from "@/i18n/routing";
 import Grain from "@/components/background/Grain";
 import Aurora from "@/components/background/Aurora";
-import ScrollCrossfade from "@/components/background/ScrollCrossfade";
+import PhotoBackdrop from "@/components/background/PhotoBackdrop";
 import CursorGlow from "@/components/background/CursorGlow";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
-import StickyWhatsAppBar from "@/components/StickyWhatsAppBar";
+import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import LenisProvider from "@/components/LenisProvider";
 import "../globals.css";
 
@@ -162,7 +162,7 @@ export default async function LocaleLayout({
             aria-hidden="true"
             className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
           >
-            <ScrollCrossfade />
+            <PhotoBackdrop />
             <Aurora />
             <Grain />
             <CursorGlow />
@@ -170,11 +170,11 @@ export default async function LocaleLayout({
 
           <div className="relative z-10">
             <Nav nav={site.nav} />
-            <main className="pb-16 md:pb-0">{children}</main>
+            <main>{children}</main>
             <Footer footer={site.footer} />
           </div>
 
-          <StickyWhatsAppBar bar={site.stickyBar} />
+          <FloatingWhatsApp />
         </NextIntlClientProvider>
       </body>
     </html>

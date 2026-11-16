@@ -12,20 +12,20 @@ export default function ClubStrip({
   return (
     <section
       id="club-strip"
-      className="relative border-b border-jungle/10 bg-sand px-6 py-8 text-jungle sm:px-10 sm:py-10"
+      className="relative border-b border-sand/15 px-6 py-8 text-sand sm:px-10 sm:py-10"
     >
       <div className="mx-auto grid max-w-7xl grid-cols-3 gap-4 text-center sm:gap-8">
         {clubStrip.stats.map((stat, i) => (
           <div
             key={stat.big}
-            className={i === 1 ? "border-x border-jungle/15 px-2" : undefined}
+            className={i === 1 ? "border-x border-sand/15 px-2" : undefined}
           >
             <div
-              className={`font-display text-3xl font-bold sm:text-4xl ${i === 1 ? "" : "text-turf"}`}
+              className={`font-display text-3xl font-bold sm:text-4xl ${i === 1 ? "" : "text-lime"}`}
             >
               {stat.big}
             </div>
-            <div className="mt-0.5 text-[11px] tracking-wider text-jungle/60 uppercase">
+            <div className="mt-0.5 text-[11px] tracking-wider text-sand/60 uppercase">
               {stat.small}
             </div>
           </div>

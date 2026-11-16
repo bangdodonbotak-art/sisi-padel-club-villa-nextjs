@@ -5,12 +5,14 @@
  * which left the homepage with NO <h1> in server-rendered HTML — the
  * #1 SEO defect found in the 2026-11-16 audit. This shell renders in SSR
  * HTML: preloader, first-frame <img>, canvas element, eyebrow,
- * H1, primary CTA. The interactive layer (canvas frame sequence, GSAP
+ * H1. The interactive layer (canvas frame sequence, GSAP
  * pin/scrub, floating ball) lives in HeroInteractive, loaded client-only
  * via HeroLoader, and takes over these DOM nodes by id after mount.
  *
  * Stage 1 rebuild (16 Nov 2026): top meta bar removed, secondary CTA +
- * subcopy removed — hero is eyebrow + H1 + Chat WhatsApp button only.
+ * subcopy removed — hero is eyebrow + H1 only. The Chat WhatsApp CTA
+ * was removed 16 Nov 2026 (Dony 12:16) — the single floating WhatsApp
+ * button replaces it site-wide.
  *
  * Frame sequence, pin/scrub values, preloader, and ball timeline are
  * verbatim from the old Hero; Stage 1 changed only headline sizes,
@@ -43,6 +45,7 @@ export default function HeroShell({
       >
         <div className="flex items-center justify-between text-xs tracking-[0.2em] uppercase opacity-80">
           <span>{preloader.topLeft}</span>
+          {/* preloader.topRight dihapus — perintah Dony 10:50, jangan dikembalikan */}
         </div>
 
         <div className="relative my-auto flex flex-col items-center justify-center">
@@ -116,7 +119,8 @@ export default function HeroShell({
         {/* Bottom scrim for headline legibility over the bright scene */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[62%] bg-gradient-to-t from-jungle/85 via-jungle/35 to-transparent" />
 
-        {/* Headline + CTA (bottom-left, over the scene) */}
+        {/* Headline (bottom-left, over the scene) — no CTA here any more:
+            the floating WhatsApp button is the only chat button (Dony 12:16). */}
         <div className="relative z-20 mx-auto mt-auto w-full max-w-7xl px-6 sm:px-10">
           <p className="mb-2 text-xs font-semibold tracking-[0.2em] text-lime uppercase">
             {hero.eyebrow}
@@ -129,25 +133,11 @@ export default function HeroShell({
               {hero.headlineLine2}
             </span>
           </h1>
-          <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
-            <a
-              href={hero.primaryCtaUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full bg-lime px-6 py-3.5 text-xs font-semibold tracking-[0.14em] text-jungle uppercase transition-opacity hover:opacity-95 sm:text-sm"
-            >
-              {hero.primaryCta}
-            </a>
-          </div>
         </div>
       </section>
 
       {/* Interactive layer (canvas sequence, GSAP, ball) mounts after hydration */}
-      <HeroLoader
-        ballAlt={hero.ballAlt}
-        pauseMotion={hero.pauseMotion}
-        resumeMotion={hero.resumeMotion}
-      />
+      <HeroLoader ballAlt={hero.ballAlt} />
     </>
   );
 }

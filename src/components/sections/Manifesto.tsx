@@ -54,18 +54,18 @@ export default function Manifesto({
   return (
     <section
       id="manifesto"
-      className="relative overflow-hidden bg-sand px-6 py-24 text-jungle sm:px-10 sm:py-32 md:py-40"
+      className="relative overflow-hidden px-6 py-24 text-sand sm:px-10 sm:py-32 md:py-40"
     >
       <ParallaxLayers />
       <div className="relative mx-auto max-w-6xl">
-        <div className="mb-10 flex flex-wrap items-center justify-between gap-4 border-b border-jungle/15 pb-8 text-xs tracking-[0.2em] text-jungle/70 uppercase">
+        <div className="mb-10 flex flex-wrap items-center justify-between gap-4 border-b border-sand/15 pb-8 text-xs tracking-[0.2em] text-sand/70 uppercase">
           <span>{manifesto.label}</span>
           <span>{manifesto.labelRight}</span>
         </div>
 
         <p
           ref={textRef}
-          className="font-display text-[7vw] leading-[0.96] font-bold tracking-tight text-jungle uppercase sm:text-[5.5vw] md:text-[4.2vw]"
+          className="font-display text-[7vw] leading-[0.96] font-bold tracking-tight text-sand uppercase sm:text-[5.5vw] md:text-[4.2vw]"
         >
           {words.map((word, i) => (
             <Word
@@ -77,19 +77,19 @@ export default function Manifesto({
           ))}
         </p>
 
-        <Reveal className="mt-14 grid grid-cols-1 gap-4 border-t border-jungle/15 pt-8 sm:grid-cols-3">
+        <Reveal className="mt-14 grid grid-cols-1 gap-4 border-t border-sand/15 pt-8 sm:grid-cols-3">
           {manifesto.facts.map((fact) => (
             <div
               key={fact.title}
-              className="rounded-2xl border border-jungle/10 bg-[#E5DEC9]/70 p-5"
+              className="rounded-2xl border border-sand/20 bg-jungle/55 p-5 backdrop-blur-sm"
             >
-              <span className="text-[11px] font-semibold tracking-[0.2em] text-turf uppercase">
+              <span className="text-[11px] font-semibold tracking-[0.2em] text-lime uppercase">
                 {fact.label}
               </span>
               <p className="font-display mt-1 text-2xl font-bold">
                 {fact.title}
               </p>
-              <p className="mt-1 text-xs text-jungle/75">{fact.body}</p>
+              <p className="mt-1 text-xs text-sand/75">{fact.body}</p>
             </div>
           ))}
         </Reveal>

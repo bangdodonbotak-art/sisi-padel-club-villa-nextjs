@@ -31,7 +31,14 @@
  * (content/*.json + messages/*.json); the build never blocks.
  */
 import type { Metadata } from "next";
-import { getCourts, getFaq, getPhotos, getSite, type Locale } from "@/lib/content";
+import {
+  getCourts,
+  getFaq,
+  getPhotos,
+  getSite,
+  siteFacts,
+  type Locale,
+} from "@/lib/content";
 
 // SEO audit 2026-11-16: the admin stub is a read-only internal tool —
 // it must not be indexed. (Do NOT add a robots.txt Disallow for it:
@@ -165,7 +172,7 @@ export default async function AdminPage({
         <p className="mt-2 text-sm text-sand/75">
           Hero headline on this build: {site.hero.headlineLine1}{" "}
           {site.hero.headlineLine2} · WhatsApp:{" "}
-          {site.common.whatsappDisplay}
+          <a href={siteFacts.whatsappUrl} target="_blank" rel="noopener noreferrer" className="underline">Chat WhatsApp ↗</a>
         </p>
         <ol className="mt-4 space-y-2 text-sm leading-relaxed text-sand/85">
           {SANITY_STEPS.map((step) => (

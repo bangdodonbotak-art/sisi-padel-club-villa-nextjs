@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { getCourts, getSite, siteFacts, type Locale } from "@/lib/content";
 import ParallaxLayers from "@/components/background/ParallaxLayers";
-import CourtViewerLoader from "@/components/three/CourtViewerLoader";
+import FacilityIcon from "@/components/sections/FacilityIcon";
 import Reveal from "./Reveal";
 
 /**
@@ -18,7 +18,7 @@ export default function Courts({ locale }: { locale: Locale }) {
   return (
     <section
       id="courts"
-      className="court-grid-lines relative overflow-hidden bg-turf px-6 py-24 text-sand sm:px-10 sm:py-32"
+      className="court-grid-lines relative overflow-hidden px-6 py-24 text-sand sm:px-10 sm:py-32"
     >
       <ParallaxLayers />
       <div className="relative mx-auto max-w-7xl">
@@ -81,40 +81,6 @@ export default function Courts({ locale }: { locale: Locale }) {
           ))}
         </div>
 
-        {/* 3D court viewer — between the court cards and the facilities list.
-            Title + hint render on the server; the Canvas itself lazy-loads
-            via CourtViewerLoader (tier "off" falls back to the Upper photo). */}
-        <Reveal className="mt-16">
-          <div className="mb-6">
-            <h3 className="font-display text-3xl font-bold sm:text-4xl">
-              {strings.viewerTitle}
-            </h3>
-            <p className="mt-2 max-w-md text-sm text-sand/85 sm:text-base">
-              {strings.viewerHint}
-            </p>
-          </div>
-          <CourtViewerLoader
-            strings={{
-              title: strings.viewerTitle,
-              activate: strings.viewerActivate,
-              day: strings.viewerDay,
-              night: strings.viewerNight,
-              lightingLabel: strings.viewerLightingLabel,
-              reset: strings.viewerReset,
-              zoomIn: strings.viewerZoomIn,
-              zoomOut: strings.viewerZoomOut,
-              hotspotSurface: strings.hotspotSurface,
-              hotspotSurfaceBody: strings.hotspotSurfaceBody,
-              hotspotGlass: strings.hotspotGlass,
-              hotspotGlassBody: strings.hotspotGlassBody,
-              close: strings.viewerClose,
-            }}
-            fallbackPhoto={courts[0].photo}
-            fallbackAlt={courts[0].photoAlt}
-            fallbackText={strings.viewerFallback}
-          />
-        </Reveal>
-
         <Reveal className="mt-16 border-t border-sand/20 pt-12">
           <div className="mb-8 flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
             <h3 className="font-display text-3xl font-bold sm:text-4xl">
@@ -129,12 +95,12 @@ export default function Courts({ locale }: { locale: Locale }) {
             {strings.facilities.map((facility, i) => (
               <li
                 key={facility}
-                className={`flex min-h-[108px] flex-col justify-between rounded-2xl border border-sand/20 bg-jungle/55 p-4 ${i === 6 ? "col-span-2 sm:col-span-1" : ""}`}
+                className={`flex min-h-[132px] flex-col items-center justify-center gap-3 rounded-2xl border border-sand/20 bg-jungle/55 p-4 text-center ${i === 6 ? "col-span-2 sm:col-span-1" : ""}`}
               >
-                <span className="font-mono text-[11px] text-lime">
-                  {String(i + 1).padStart(2, "0")}
+                <span className="flex h-14 w-14 items-center justify-center rounded-full bg-lime text-jungle">
+                  <FacilityIcon index={i} />
                 </span>
-                <span className="font-display text-xl font-bold tracking-wide">
+                <span className="font-display text-lg leading-tight font-bold tracking-wide">
                   {facility}
                 </span>
               </li>

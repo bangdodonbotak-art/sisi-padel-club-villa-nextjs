@@ -144,7 +144,7 @@ export default function Booking({ locale }: { locale: Locale }) {
   return (
     <section
       id="booking"
-      className="court-grid-lines relative bg-turf px-6 py-24 text-sand sm:px-10 sm:py-32"
+      className="court-grid-lines relative px-6 py-24 text-sand sm:px-10 sm:py-32"
     >
       <div className="mx-auto max-w-6xl">
         <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-12">
