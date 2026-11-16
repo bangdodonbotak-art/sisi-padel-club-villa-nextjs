@@ -245,7 +245,7 @@ export default function HeroInteractive({ ballAlt }: { ballAlt: string }) {
     >
       <div
         id="scroll-ball-wrapper"
-        className="absolute top-[24vh] right-[6vw] flex h-16 w-16 items-center justify-center will-change-transform sm:h-20 sm:w-20 md:top-[18vh] md:right-[14vw] md:h-28 md:w-28"
+        className="absolute top-[24vh] right-[6vw] flex h-16 w-16 items-center justify-center will-change-transform sm:h-20 sm:w-20 md:top-[18vh] md:right-[14vw] md:h-14 md:w-14"
       >
         <div className="pointer-events-none absolute inset-3 rounded-full bg-lime/30 blur-xl" />
         {!ballFailed && (
