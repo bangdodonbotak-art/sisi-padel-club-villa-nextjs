@@ -9,6 +9,7 @@
  */
 import { useState } from "react";
 import type { SiteMessages } from "@/lib/content";
+import LocaleSwitcher from "@/components/LocaleSwitcher";
 import MusicToggle from "@/components/MusicToggle";
 import OpenStatus from "@/components/OpenStatus";
 
@@ -51,6 +52,7 @@ export default function Nav({ nav }: { nav: SiteMessages["nav"] }) {
             statusAriaClosed={nav.statusAriaClosed}
           />
           <MusicToggle />
+          <LocaleSwitcher />
 
           {/* Mobile hamburger */}
           <button
@@ -93,6 +95,9 @@ export default function Nav({ nav }: { nav: SiteMessages["nav"] }) {
               </li>
             ))}
           </ul>
+          <div className="mt-3 flex justify-start px-3 pb-1">
+            <LocaleSwitcher />
+          </div>
         </div>
       </div>
     </header>

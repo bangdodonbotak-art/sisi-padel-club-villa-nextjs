@@ -4,9 +4,11 @@ import { siteFacts } from "@/lib/content";
  * FloatingWhatsApp — THE ONLY Chat WhatsApp button on the site (Dony 12:16).
  *
  * One fixed floating button, bottom-right, always visible. Official
- * WhatsApp glyph as inline SVG (not emoji), lime circle + jungle glyph,
- * soft shadow, gentle float animation (disabled under
- * prefers-reduced-motion). Glyph only — no digits, no text.
+ * WhatsApp glyph as inline SVG (not emoji), official WhatsApp green
+ * (#25D366) circle + white glyph — Dony 17 Nov 2026: match the real
+ * WhatsApp logo colour, not the site lime. Soft shadow, gentle float
+ * animation (disabled under prefers-reduced-motion).
+ * Glyph only — no digits, no text.
  * Links to wa.me/628111592462 (the number lives only in the URL).
  *
  * Replaces: the Nav pill, the hero CTA, the mobile sticky bar, the
@@ -23,7 +25,7 @@ export default function FloatingWhatsApp() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat WhatsApp"
-      className="animate-wa-float fixed right-4 bottom-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-lime text-jungle shadow-[0_10px_30px_rgba(14,31,26,0.35)] transition-transform hover:scale-110 sm:right-6 sm:bottom-6"
+      className="animate-wa-float fixed right-4 bottom-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_10px_30px_rgba(37,211,102,0.45)] transition-transform hover:scale-110 sm:right-6 sm:bottom-6"
     >
       <svg
         aria-hidden="true"
