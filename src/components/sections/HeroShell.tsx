@@ -129,10 +129,13 @@ export default function HeroShell({
             {hero.eyebrow}
           </p>
           <h1 className="font-display leading-[0.84] font-bold tracking-tight select-none">
-            <span className="block text-[15vw] text-sand sm:text-[12vw] lg:text-[9vw]">
+            {/* Headline size cut ~20% on Dony's order 17 Nov 2026 02:34 WIB
+                ("tulisan STAY. PLAY. Breathe. terlalu gede") — was
+                15vw/16vw mobile, 12vw/13vw sm, 9vw/10vw lg. */}
+            <span className="block text-[12vw] text-sand sm:text-[10vw] lg:text-[7.5vw]">
               {hero.headlineLine1}
             </span>
-            <span className="block text-[16vw] text-lime italic sm:text-[13vw] lg:text-[10vw]">
+            <span className="block text-[13vw] text-lime italic sm:text-[11vw] lg:text-[8vw]">
               {hero.headlineLine2}
             </span>
           </h1>
