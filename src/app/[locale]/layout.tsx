@@ -28,9 +28,9 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const loc = isLocale(locale) ? locale : "id";
+  const loc = isLocale(locale) ? locale : "en";
   const site = getSite(loc);
-  const canonical = loc === "id" ? siteUrl : `${siteUrl}/en`;
+  const canonical = loc === "en" ? siteUrl : `${siteUrl}/id`;
   const ogImage = `${siteUrl}/hero/desktop/0001.webp`;
 
   return {
@@ -41,8 +41,8 @@ export async function generateMetadata({
       canonical,
       languages: {
         "x-default": siteUrl,
-        id: siteUrl,
-        en: `${siteUrl}/en`,
+        id: `${siteUrl}/id`,
+        en: siteUrl,
       },
     },
     openGraph: {
@@ -99,7 +99,7 @@ export default async function LocaleLayout({
     "@type": ["SportsActivityLocation", "LocalBusiness"],
     name: siteFacts.businessName,
     description: site.meta.description,
-    url: loc === "id" ? siteUrl : `${siteUrl}/en`,
+    url: loc === "en" ? siteUrl : `${siteUrl}/id`,
     telephone: "+628111592462",
     address: {
       "@type": "PostalAddress",

@@ -19,21 +19,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: {
         languages: {
           "x-default": siteUrl,
-          id: siteUrl,
-          en: `${siteUrl}/en`,
+          id: `${siteUrl}/id`,
+          en: siteUrl,
         },
       },
     },
     {
-      url: `${siteUrl}/en`,
+      url: `${siteUrl}/id`,
       lastModified,
       changeFrequency: "weekly",
       priority: 0.9,
       alternates: {
         languages: {
           "x-default": siteUrl,
-          id: siteUrl,
-          en: `${siteUrl}/en`,
+          id: `${siteUrl}/id`,
+          en: siteUrl,
         },
       },
     },

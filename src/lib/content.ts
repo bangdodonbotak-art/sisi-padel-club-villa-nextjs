@@ -18,7 +18,7 @@ import enMessages from "../../messages/en.json";
 export type Locale = "id" | "en";
 
 export const locales: Locale[] = ["id", "en"];
-export const defaultLocale: Locale = "id";
+export const defaultLocale: Locale = "en";
 
 export function isLocale(value: string): value is Locale {
   return value === "id" || value === "en";

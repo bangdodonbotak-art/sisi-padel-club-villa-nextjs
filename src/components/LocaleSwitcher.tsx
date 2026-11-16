@@ -3,8 +3,7 @@
 /**
  * LocaleSwitcher — ID / EN toggle in the Nav.
  *
- * The site is bilingual (next-intl, `id` default at `/`, `en` at `/en`)
- * but until now there was no UI to switch — Dony 17 Nov 2026.
+ * The site is bilingual (next-intl, `en` default at `/`, `id` at `/id`).
  * Plain anchors: next-intl middleware serves the right locale for the
  * path, and the switch keeps the visitor on the same page.
  */
@@ -15,8 +14,8 @@ function hrefFor(pathname: string, target: "id" | "en"): string {
   // During static prerender usePathname() returns the locale segment
   // itself ("/id" / "/en"), so strip either prefix before rebuilding.
   const withoutPrefix = pathname.replace(/^\/(en|id)(?=\/|$)/, "") || "/";
-  if (target === "en") {
-    return withoutPrefix === "/" ? "/en" : `/en${withoutPrefix}`;
+  if (target === "id") {
+    return withoutPrefix === "/" ? "/id" : `/id${withoutPrefix}`;
   }
   return withoutPrefix;
 }

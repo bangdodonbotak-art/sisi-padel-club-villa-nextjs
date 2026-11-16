@@ -27,7 +27,7 @@ export default async function LocalePage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const loc: Locale = isLocale(locale) ? locale : "id";
+  const loc: Locale = isLocale(locale) ? locale : "en";
   const site = getSite(loc);
 
   return (
