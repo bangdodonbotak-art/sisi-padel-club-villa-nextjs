@@ -8,6 +8,7 @@ import ParallaxLayers from "@/components/background/ParallaxLayers";
 import FacilityIcon from "@/components/sections/FacilityIcon";
 import Lightbox, { type LightboxItem } from "@/components/Lightbox";
 import Reveal from "./Reveal";
+import WordReveal from "./WordReveal";
 
 /**
  * Courts — Upper + Main court cards with real photos and the 7 verified
@@ -104,7 +105,7 @@ export default function Courts({ locale }: { locale: Locale }) {
               {strings.label}
             </span>
             <h2 className="font-display text-5xl font-bold sm:text-6xl md:text-7xl">
-              {strings.heading}
+              <WordReveal text={strings.heading} />
             </h2>
           </div>
           <p className="max-w-md text-sm text-sand/85 sm:text-base">
@@ -183,7 +184,7 @@ export default function Courts({ locale }: { locale: Locale }) {
         <Reveal className="mt-16 border-t border-sand/20 pt-12">
           <div className="mb-8 flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
             <h3 className="font-display text-3xl font-bold sm:text-4xl">
-              {strings.facilitiesHeading}
+              <WordReveal text={strings.facilitiesHeading} delay={0.1} />
             </h3>
             <span className="text-xs tracking-[0.2em] text-sand/75 uppercase">
               {strings.facilitiesHeadingRight}

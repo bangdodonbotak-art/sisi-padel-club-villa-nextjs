@@ -30,6 +30,7 @@
 import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { getSite, siteFacts, type Locale } from "@/lib/content";
+import WordReveal from "./WordReveal";
 
 /** 120-minute slot grid, 08:00–21:30. 19:30 ends exactly at closing time. */
 const TIME_SLOTS = [
@@ -147,6 +148,108 @@ function Chip({
   );
 }
 
+/**
+ * Sequential step tracker above the composer form (Dony 17 Nov 2026,
+ * Tidepool reference video 2: checklist items fill in one by one).
+ * Each finished step turns lime and draws its check; the connector
+ * line fills as the visitor progresses court → day → time. States
+ * only (no animation) under prefers-reduced-motion. aria-hidden: the
+ * same steps are already the form's labelled fieldsets.
+ */
+function StepTracker({
+  activeStep,
+  locale,
+  reduceMotion,
+}: {
+  activeStep: number;
+  locale: Locale;
+  reduceMotion: boolean;
+}) {
+  const labels =
+    locale === "id"
+      ? ["Lapangan", "Tanggal", "Jam"]
+      : ["Court", "Date", "Time"];
+  return (
+    <div className="mb-6" aria-hidden="true">
+      <div className="flex items-start">
+        {labels.map((label, i) => {
+          const step = i + 1;
+          const done = step < activeStep;
+          const current = step === activeStep;
+          const segmentDone = activeStep > step;
+          return (
+            <div
+              key={label}
+              className={`flex items-start ${i < labels.length - 1 ? "flex-1" : ""}`}
+            >
+              <div className="flex shrink-0 flex-col items-center gap-1.5">
+                <span
+                  className={`flex h-8 w-8 items-center justify-center rounded-full border text-xs font-bold transition-colors duration-500 ${
+                    done
+                      ? "border-lime bg-lime text-jungle"
+                      : current
+                        ? "border-lime text-lime"
+                        : "border-sand/25 text-sand/50"
+                  }`}
+                >
+                  {done ? (
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="h-4 w-4"
+                    >
+                      {reduceMotion ? (
+                        <path d="M5 12l5 5 9-10" />
+                      ) : (
+                        <motion.path
+                          d="M5 12l5 5 9-10"
+                          initial={{ pathLength: 0 }}
+                          animate={{ pathLength: 1 }}
+                          transition={{ duration: 0.35, ease: "easeOut" }}
+                        />
+                      )}
+                    </svg>
+                  ) : (
+                    step
+                  )}
+                </span>
+                <span
+                  className={`text-[10px] tracking-wider whitespace-nowrap uppercase ${
+                    done || current ? "text-sand" : "text-sand/50"
+                  }`}
+                >
+                  {label}
+                </span>
+              </div>
+              {i < labels.length - 1 && (
+                <div className="relative mx-2 mt-4 h-0.5 flex-1 bg-sand/15">
+                  {reduceMotion ? (
+                    <div
+                      className="absolute inset-y-0 left-0 bg-lime"
+                      style={{ width: segmentDone ? "100%" : "0%" }}
+                    />
+                  ) : (
+                    <motion.div
+                      className="absolute inset-y-0 left-0 w-full origin-left bg-lime"
+                      initial={false}
+                      animate={{ scaleX: segmentDone ? 1 : 0 }}
+                      transition={{ duration: 0.6, ease: "easeInOut" }}
+                    />
+                  )}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 export default function Booking({ locale }: { locale: Locale }) {
   const site = getSite(locale);
   const { booking } = site;
@@ -237,7 +340,7 @@ export default function Booking({ locale }: { locale: Locale }) {
               {booking.label}
             </span>
             <h2 className="font-display text-5xl leading-none font-bold sm:text-6xl">
-              {booking.heading}
+              <WordReveal text={booking.heading} />
             </h2>
             <p className="text-sm text-sand/85 sm:text-base">
               {booking.intro}
@@ -292,13 +395,19 @@ export default function Booking({ locale }: { locale: Locale }) {
                   {booking.composerLabel}
                 </span>
                 <h3 className="font-display mt-0.5 text-3xl font-bold sm:text-4xl">
-                  {booking.composerTitle}
+                  <WordReveal text={booking.composerTitle} delay={0.1} />
                 </h3>
               </div>
               <span className="rounded-full bg-sand/10 px-3 py-1 font-mono text-xs whitespace-nowrap text-sand/80">
                 {booking.hoursPill}
               </span>
             </div>
+
+            <StepTracker
+              activeStep={activeStep}
+              locale={locale}
+              reduceMotion={reduceMotion}
+            />
 
             <form id="wa-composer-form" onSubmit={onSubmit} className="space-y-5">
               <FadeItem delay={0} reduceMotion={reduceMotion}>

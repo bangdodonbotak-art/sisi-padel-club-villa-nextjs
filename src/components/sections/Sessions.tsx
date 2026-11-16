@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from "motion/react";
 import type { SiteMessages } from "@/lib/content";
 import Reveal from "./Reveal";
+import WordReveal from "./WordReveal";
 
 /**
  * Sessions — both 120-minute court cards + the Villa On Site card
@@ -32,7 +33,7 @@ export default function Sessions({
         {asContinuation ? (
           <div className="border-b border-sand/15 pb-10">
             <h3 className="font-display text-4xl font-bold sm:text-5xl">
-              {sessions.heading}
+              <WordReveal text={sessions.heading} />
             </h3>
           </div>
         ) : (
@@ -42,7 +43,7 @@ export default function Sessions({
                 {sessions.label}
               </span>
               <h2 className="font-display text-5xl font-bold sm:text-6xl md:text-7xl">
-                {sessions.heading}
+                <WordReveal text={sessions.heading} />
               </h2>
             </div>
             <p className="max-w-md text-sm text-sand/80 sm:text-base">

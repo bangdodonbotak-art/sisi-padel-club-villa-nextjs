@@ -15,6 +15,7 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 import { getPhotos, getSite, type Locale } from "@/lib/content";
 import DeferredVideo from "./DeferredVideo";
+import WordReveal from "./WordReveal";
 import Lightbox, { type LightboxItem } from "@/components/Lightbox";
 
 /** Real pixel dimensions of the vibe photos (measured from the files). */
@@ -120,7 +121,7 @@ export default function Vibe({ locale }: { locale: Locale }) {
               {vibe.label}
             </span>
             <h2 className="font-display text-5xl font-bold sm:text-6xl md:text-7xl">
-              {vibe.heading}
+              <WordReveal text={vibe.heading} />
             </h2>
           </div>
 

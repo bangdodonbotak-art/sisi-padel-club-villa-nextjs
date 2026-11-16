@@ -22,6 +22,7 @@ import { motion, useReducedMotion, useScroll, useTransform } from "motion/react"
 import { getPhotos, getSite, type Locale } from "@/lib/content";
 import DeferredVideo from "./DeferredVideo";
 import Reveal from "./Reveal";
+import WordReveal from "./WordReveal";
 import Lightbox, { type LightboxItem } from "@/components/Lightbox";
 
 /** Real pixel dimensions of the stay photos (measured from the files). */
@@ -65,7 +66,7 @@ export default function Stay({ locale }: { locale: Locale }) {
               {stay.label}
             </span>
             <h2 className="font-display text-5xl font-bold sm:text-6xl md:text-7xl">
-              {stay.heading}
+              <WordReveal text={stay.heading} />
             </h2>
           </div>
           <p className="max-w-md text-sm text-sand/80 sm:text-base">

@@ -1,5 +1,6 @@
 import { getSite, siteFacts, type Locale } from "@/lib/content";
 import Reveal from "./Reveal";
+import WordReveal from "./WordReveal";
 
 /**
  * Visit — address/hours/rating card + Google Maps embed card
@@ -39,7 +40,7 @@ export default function Visit({ locale }: { locale: Locale }) {
               {visit.label}
             </span>
             <h2 className="font-display text-5xl font-bold sm:text-6xl md:text-7xl">
-              {visit.heading}
+              <WordReveal text={visit.heading} />
             </h2>
           </div>
           <div className="rounded-full border border-sand/15 bg-[#162F28] px-4 py-2.5 font-mono text-xs text-lime sm:text-sm">

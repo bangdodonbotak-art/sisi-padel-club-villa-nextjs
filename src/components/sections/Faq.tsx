@@ -16,6 +16,7 @@
 import { useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { getFaq, getSite, type Locale } from "@/lib/content";
+import WordReveal from "./WordReveal";
 
 export default function Faq({ locale }: { locale: Locale }) {
   const faq = getFaq(locale);
@@ -55,7 +56,7 @@ export default function Faq({ locale }: { locale: Locale }) {
               {site.faq.label}
             </span>
             <h2 className="font-display text-4xl font-bold sm:text-6xl">
-              {site.faq.heading}
+              <WordReveal text={site.faq.heading} />
             </h2>
           </div>
         </div>
