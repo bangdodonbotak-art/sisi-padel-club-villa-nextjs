@@ -13,6 +13,12 @@
  *
  * DO NOT CHANGE the frame sequence, pin/scrub values, preloader, or ball
  * behaviour — only the loading boundary moved (see HeroShell).
+ *
+ * Exceptions on Dony's direct order, 17 Nov 2026 ~02:21 WIB (from his phone
+ * screenshots): (1) ball scale locked at 1 through the whole travel — it
+ * used to shrink 1 -> 0.72 -> 0.48 -> 0.34 and looked tiny once scrolled;
+ * (2) mobile frame-0 focus shift in heroDraw so the model starts centred
+ * on portrait phones instead of right-of-centre.
  */
 import { useLayoutEffect, useState } from "react";
 import gsap from "gsap";
@@ -124,7 +130,22 @@ export default function HeroInteractive({ ballAlt }: { ballAlt: string }) {
         const dw = img.naturalWidth * scale;
         const dh = img.naturalHeight * scale;
         ctx2d.clearRect(0, 0, cw, ch);
-        ctx2d.drawImage(img, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
+        // Mobile focus shift (Dony 17 Nov 2026, 02:20 WIB): at scroll 0 the
+        // model renders right-of-centre (~55%) on a portrait phone, because
+        // the centred cover-crop of the 864x1080 mobile frame cuts the left
+        // side. Shift the draw left by 20 CSS px at frame 0 so her torso
+        // lands on the centre line, fading to 0 by frame 16 (cosine) — by
+        // then the orbit has carried her left anyway, and a constant shift
+        // would push her out of frame late in the sequence (frame 48 has
+        // her at the far left edge). Desktop untouched; the <img> first
+        // frame in HeroShell carries the matching object-position.
+        const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+        const focusShift = heroIsMobile
+          ? i < 16
+            ? 20 * dpr * 0.5 * (1 + Math.cos((Math.PI * i) / 16))
+            : 0
+          : 0;
+        ctx2d.drawImage(img, (cw - dw) / 2 - focusShift, (ch - dh) / 2, dw, dh);
         heroCanvas.dataset.frame = String(i);
         heroShown = i;
         if (heroFirstImg && j === 0) heroFirstImg.style.opacity = "0";
@@ -197,6 +218,11 @@ export default function HeroInteractive({ ballAlt }: { ballAlt: string }) {
       // --- Floating padel ball (verbatim timeline) ---
       const ballWrapper = document.getElementById("scroll-ball-wrapper");
       if (ballWrapper) {
+        // Ball travel (verbatim positions/rotation) — but scale LOCKED at 1
+        // on Dony's order 17 Nov 2026 02:21 WIB ("bola terlalu kecil, buat
+        // normal aja"): the old 1 -> 0.72 -> 0.48 -> 0.34 shrink left it ~22px
+        // on mobile once scrolled. Size now stays the normal 64px (mobile) /
+        // 56px (desktop) through the whole page; only position/rotation move.
         const ballTl = gsap.timeline({
           scrollTrigger: {
             trigger: "body",
@@ -210,21 +236,21 @@ export default function HeroInteractive({ ballAlt }: { ballAlt: string }) {
             x: () => -window.innerWidth * 0.52,
             y: () => window.innerHeight * 0.34,
             rotation: 340,
-            scale: 0.72,
+            scale: 1,
             ease: "none",
           })
           .to(ballWrapper, {
             x: () => -window.innerWidth * 0.08,
             y: () => window.innerHeight * 0.62,
             rotation: 720,
-            scale: 0.48,
+            scale: 1,
             ease: "none",
           })
           .to(ballWrapper, {
             x: () => -window.innerWidth * 0.62,
             y: () => window.innerHeight * 0.74,
             rotation: 1080,
-            scale: 0.34,
+            scale: 1,
             opacity: 0.85,
             ease: "none",
           });

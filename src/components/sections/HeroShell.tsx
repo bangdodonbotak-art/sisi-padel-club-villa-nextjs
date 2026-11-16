@@ -85,7 +85,10 @@ export default function HeroShell({
       >
         {/* Frame 1: real <img> for instant LCP; the canvas draws the sequence on top.
             Mobile gets the lighter /hero/mobile/0001.webp via <picture>; the
-            desktop frame stays the fallback <img>. */}
+            desktop frame stays the fallback <img>. Mobile object-position 57%
+            matches the canvas frame-0 focus shift in HeroInteractive (Dony
+            17 Nov 2026: model starts centred on portrait phones), so there
+            is no jump when the canvas takes over; desktop keeps object-center. */}
         <picture>
           <source
             media="(max-width: 768px)"
@@ -98,7 +101,7 @@ export default function HeroShell({
             alt={hero.firstFrameAlt}
             width={1280}
             height={720}
-            className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500"
+            className="absolute inset-0 h-full w-full object-cover object-[57%_50%] transition-opacity duration-500 md:object-center"
           />
         </picture>
         <canvas
