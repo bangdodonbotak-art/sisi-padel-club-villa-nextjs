@@ -43,7 +43,6 @@ export default function HeroShell({
       >
         <div className="flex items-center justify-between text-xs tracking-[0.2em] uppercase opacity-80">
           <span>{preloader.topLeft}</span>
-          <span>{preloader.topRight}</span>
         </div>
 
         <div className="relative my-auto flex flex-col items-center justify-center">
@@ -144,7 +143,11 @@ export default function HeroShell({
       </section>
 
       {/* Interactive layer (canvas sequence, GSAP, ball) mounts after hydration */}
-      <HeroLoader ballAlt={hero.ballAlt} />
+      <HeroLoader
+        ballAlt={hero.ballAlt}
+        pauseMotion={hero.pauseMotion}
+        resumeMotion={hero.resumeMotion}
+      />
     </>
   );
 }

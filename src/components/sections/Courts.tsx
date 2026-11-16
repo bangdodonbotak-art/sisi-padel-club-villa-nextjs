@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { getCourts, getSite, siteFacts, type Locale } from "@/lib/content";
 import ParallaxLayers from "@/components/background/ParallaxLayers";
+import CourtViewerLoader from "@/components/three/CourtViewerLoader";
 import Reveal from "./Reveal";
 
 /**
@@ -79,6 +80,40 @@ export default function Courts({ locale }: { locale: Locale }) {
             </Reveal>
           ))}
         </div>
+
+        {/* 3D court viewer — between the court cards and the facilities list.
+            Title + hint render on the server; the Canvas itself lazy-loads
+            via CourtViewerLoader (tier "off" falls back to the Upper photo). */}
+        <Reveal className="mt-16">
+          <div className="mb-6">
+            <h3 className="font-display text-3xl font-bold sm:text-4xl">
+              {strings.viewerTitle}
+            </h3>
+            <p className="mt-2 max-w-md text-sm text-sand/85 sm:text-base">
+              {strings.viewerHint}
+            </p>
+          </div>
+          <CourtViewerLoader
+            strings={{
+              title: strings.viewerTitle,
+              activate: strings.viewerActivate,
+              day: strings.viewerDay,
+              night: strings.viewerNight,
+              lightingLabel: strings.viewerLightingLabel,
+              reset: strings.viewerReset,
+              zoomIn: strings.viewerZoomIn,
+              zoomOut: strings.viewerZoomOut,
+              hotspotSurface: strings.hotspotSurface,
+              hotspotSurfaceBody: strings.hotspotSurfaceBody,
+              hotspotGlass: strings.hotspotGlass,
+              hotspotGlassBody: strings.hotspotGlassBody,
+              close: strings.viewerClose,
+            }}
+            fallbackPhoto={courts[0].photo}
+            fallbackAlt={courts[0].photoAlt}
+            fallbackText={strings.viewerFallback}
+          />
+        </Reveal>
 
         <Reveal className="mt-16 border-t border-sand/20 pt-12">
           <div className="mb-8 flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
